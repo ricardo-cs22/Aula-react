@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 
-const LoginScreen = ({ navigation }) => {
+const RegisterScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>bem-vindo!</Text>
-      <Text style={styles.subHeader}>Entre na sua conta para acessar nossa plataforma.</Text>
+      <Text style={styles.header}>Crie sua conta </Text>
+      <Text style={styles.subHeader}>Crie sua conta para acessar nossa plataforma.</Text>
       <TextInput
         style={styles.input}
         placeholder="E-mail"
@@ -17,15 +17,22 @@ const LoginScreen = ({ navigation }) => {
         placeholderTextColor="#999"
         secureTextEntry
       />
+       <TextInput
+        style={styles.input}
+        placeholder="Confirmar Senha"
+        placeholderTextColor="#999"
+        secureTextEntry
+      />
       <Text style={styles.orText}>Ou</Text>
-      <TouchableOpacity>
-        <Text style={styles.createAccountText}>Criar conta</Text>
+      <TouchableOpacity 
+      onPress={() => navigation.navigate('Login')}>
+        <Text style={styles.createAccountText}>Entrar</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.loginButton}
         onPress={() => navigation.navigate('Tasks')}
       >
-        <Text style={styles.loginButtonText}>Entrar</Text>
+        <Text style={styles.loginButtonText}>Criar conta</Text>
       </TouchableOpacity>
     </View>
   );
@@ -70,7 +77,7 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
   },
   loginButton: {
-    backgroundColor: '#9a52ff',
+    backgroundColor: '#4B0082',
     borderRadius: 5,
     padding: 15,
     alignItems: 'center',
@@ -81,4 +88,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+export default RegisterScreen;
