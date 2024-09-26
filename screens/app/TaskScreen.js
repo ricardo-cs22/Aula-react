@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
         width: "70%"
     },
     checkbox: {
-        borderRadius: 5,
+        borderRadius: 8,
         width: 25,
         height: 25
     }

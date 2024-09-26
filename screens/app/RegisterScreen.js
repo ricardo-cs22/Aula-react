@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: '#333',
     color: '#fff',
-    borderRadius: 5,
+    borderRadius: 10,
     padding: 10,
     marginBottom: 10,
   },
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
   },
   loginButton: {
     backgroundColor: '#4B0082',
-    borderRadius: 5,
+    borderRadius: 10,
     padding: 15,
     alignItems: 'center',
   },
