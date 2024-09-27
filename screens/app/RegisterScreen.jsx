@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 
 const RegisterScreen = ({ navigation }) => {
+  const [email,setEmail] = useState ("");
+  const [password,setPassword] = useState("")
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Crie sua conta </Text>
