@@ -1,9 +1,9 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import LoginScreen from './screens/app/LoginScreen';
-import TaskScreen from './screens/app/TaskScreen';
-import Register from './screens/app/RegisterScreen';
+import LoginScreen from './screens/app/pages/LoginScreen';
+import TaskScreen from './screens/app/pages/TaskScreen';
+import Register from './screens/app/pages/RegisterScreen';
 
 
 const Stack = createStackNavigator();

@@ -1,22 +1,45 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-
+import api from '../../services/api';
 const RegisterScreen = ({ navigation }) => {
+  const [neme,setName] = useState("");
   const [email,setEmail] = useState ("");
-  const [password,setPassword] = useState("")
+  const [password,setPassword] = useState("");
+  const [cpassword,setCPassword] = useState("");
+
+  async function createUser() {
+    const userFromApi = await api.post('/user',{
+      name:neme.current.value,
+      email:email.current.value,
+      password:password.current.value 
+    })
+    
+  }
+  
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Crie sua conta </Text>
       <Text style={styles.subHeader}>Crie sua conta para acessar nossa plataforma.</Text>
+
+      <TextInput
+        style={styles.input}
+        placeholder="nome"
+        placeholderTextColor="#999"
+        value={setName}
+        secureTextEntry
+      />
+
       <TextInput
         style={styles.input}
         placeholder="E-mail"
         placeholderTextColor="#999"
+        value={setEmail}
       />
       <TextInput
         style={styles.input}
         placeholder="Senha"
         placeholderTextColor="#999"
+        value={setPassword}
         secureTextEntry
       />
        <TextInput
@@ -24,6 +47,7 @@ const RegisterScreen = ({ navigation }) => {
         placeholder="Confirmar Senha"
         placeholderTextColor="#999"
         secureTextEntry
+        value={setCPassword}
       />
       <Text style={styles.orText}>Ou</Text>
       <TouchableOpacity 
@@ -32,8 +56,15 @@ const RegisterScreen = ({ navigation }) => {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.loginButton}
-        onPress={() => navigation.navigate('Tasks')}
-      >
+        on
+        onPress={() =>{ if(name!=null || email!=null || password == cpassword){
+          createUser(),
+          navigation.navigate('Login')}
+        }
+          
+        
+          
+        }>
         <Text style={styles.loginButtonText}>Criar conta</Text>
       </TouchableOpacity>
     </View>
