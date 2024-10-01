@@ -1,21 +1,45 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import axios from 'axios';
 import api from '../../services/api';
 const RegisterScreen = ({ navigation }) => {
-  const [neme,setName] = useState("");
-  const [email,setEmail] = useState ("");
-  const [password,setPassword] = useState("");
-  const [cpassword,setCPassword] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+
+
 
   async function createUser() {
-    const userFromApi = await api.post('/user',{
-      name:neme.current.value,
-      email:email.current.value,
-      password:password.current.value 
-    })
-    
+    const response = await api.get('/users');
+    console.log( response)
+
+
+    if (!name || !email || !password ) {
+      Alert.alert('Erro', 'Por favor, preencha todos os campos corretamente!');
+      
+      return;
+      
+    }
+
+    try {
+      
+      const response = await api.post('/user', {
+        email:"312",
+        name:"123",
+        password:"321"
+      });
+      console.log('User created successfully', response.data);
+     
+      Alert.alert('Sucesso', 'Usuário criado com sucesso!');
+      navigation.navigate('Login');
+    } catch (error) {
+      console.error('Error creating user', error);
+      console.log('User created successfully', response.data);
+      Alert.alert('Erro', 'Erro ao criar o usuário, tente novamente.');
+    }
   }
-  
+
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Crie sua conta </Text>
@@ -25,45 +49,44 @@ const RegisterScreen = ({ navigation }) => {
         style={styles.input}
         placeholder="nome"
         placeholderTextColor="#999"
-        value={setName}
-        secureTextEntry
+        value={name}
+        onChange={setName}
+
       />
 
       <TextInput
         style={styles.input}
         placeholder="E-mail"
         placeholderTextColor="#999"
-        value={setEmail}
+        value={email}
+        onChange={setEmail}
       />
       <TextInput
         style={styles.input}
         placeholder="Senha"
         placeholderTextColor="#999"
-        value={setPassword}
+        value={password}
+        onChange={setPassword}
         secureTextEntry
       />
-       <TextInput
-        style={styles.input}
-        placeholder="Confirmar Senha"
-        placeholderTextColor="#999"
-        secureTextEntry
-        value={setCPassword}
-      />
+
       <Text style={styles.orText}>Ou</Text>
-      <TouchableOpacity 
-      onPress={() => navigation.navigate('Login')}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Login')}>
         <Text style={styles.createAccountText}>Entrar</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.loginButton}
         on
-        onPress={() =>{ if(name!=null || email!=null || password == cpassword){
-          createUser(),
-          navigation.navigate('Login')}
+        onPress={() => {
+
+          createUser();
+
+
         }
-          
-        
-          
+
+
+
         }>
         <Text style={styles.loginButtonText}>Criar conta</Text>
       </TouchableOpacity>
