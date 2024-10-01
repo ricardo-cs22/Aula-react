@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
-import axios from 'axios';
+
 import api from '../../services/api';
+
+
 const RegisterScreen = ({ navigation }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -11,31 +13,29 @@ const RegisterScreen = ({ navigation }) => {
 
 
   async function createUser() {
-    const response = await api.get('/users');
-    console.log( response)
-
-
-    if (!name || !email || !password ) {
+    // Validação básica
+    if (!name || !email || !password) {
       Alert.alert('Erro', 'Por favor, preencha todos os campos corretamente!');
-      
       return;
-      
     }
-
+  
+    const userData = {
+      email: email,
+      name: name,
+      password: password,
+    };
+  
+    // Log para verificar o conteúdo
+    console.log('Enviando dados do usuário:', userData);
+  
     try {
-      
-      const response = await api.post('/user', {
-        email:"312",
-        name:"123",
-        password:"321"
-      });
-      console.log('User created successfully', response.data);
-     
+      const response = await api.post('/user', userData);
+      console.log('Usuário criado com sucesso', response.data);
+  
       Alert.alert('Sucesso', 'Usuário criado com sucesso!');
       navigation.navigate('Login');
     } catch (error) {
-      console.error('Error creating user', error);
-      console.log('User created successfully', response.data);
+      console.error('Erro ao criar o usuário:', error.response?.data || error.message);
       Alert.alert('Erro', 'Erro ao criar o usuário, tente novamente.');
     }
   }
@@ -50,7 +50,7 @@ const RegisterScreen = ({ navigation }) => {
         placeholder="nome"
         placeholderTextColor="#999"
         value={name}
-        onChange={setName}
+        onChangeText={setName}
 
       />
 
@@ -59,14 +59,14 @@ const RegisterScreen = ({ navigation }) => {
         placeholder="E-mail"
         placeholderTextColor="#999"
         value={email}
-        onChange={setEmail}
+        onChangeText={setEmail}
       />
       <TextInput
         style={styles.input}
         placeholder="Senha"
         placeholderTextColor="#999"
         value={password}
-        onChange={setPassword}
+        onChangeText={setPassword}
         secureTextEntry
       />
 
