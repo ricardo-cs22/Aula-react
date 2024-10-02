@@ -25,11 +25,11 @@ const RegisterScreen = ({ navigation }) => {
       password: password,
     };
   
-    // Log para verificar o conteúdo
+   
     console.log('Enviando dados do usuário:', userData);
   
     try {
-      const response = await api.post('/user', userData);
+      let response = await api.post('/user/register', userData);
       console.log('Usuário criado com sucesso', response.data);
   
       Alert.alert('Sucesso', 'Usuário criado com sucesso!');
